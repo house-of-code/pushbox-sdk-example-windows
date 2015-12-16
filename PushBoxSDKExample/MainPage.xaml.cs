@@ -26,14 +26,11 @@ namespace PushBoxSDKExample
             // Register push event handler for when app is in foreground
             pushBoxSdk.OnPush += InstanceOnOnPush;
 
-//            Logger.Debug("Registering messages received event handler");
 //            pushBoxSdk.OnMessagesReceived += InstanceOnOnMessagesReceived;
 //            pushBoxSdk.GetMessages();
 //
-//            Logger.Debug("Setting gender...");
 //            pushBoxSdk.SetGender(Gender.Female);
 //
-//            Logger.Debug("Setting channels...");
 //            pushBoxSdk.SetChannels(new List<string>() {  "channel1", "channel2", "channel3", "channel4" });
         }
 

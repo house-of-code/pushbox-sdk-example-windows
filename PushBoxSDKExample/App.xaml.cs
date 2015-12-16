@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -42,8 +43,6 @@ namespace PushBoxSDKExample
 
             this.UnhandledException += OnUnhandledException;
 
-            Logger = new Logger("App", LogLevel.Debug);
-
             var pushBoxSdk = PushBoxSDK.Instance;
 
             // Initialize with api key and secret
@@ -52,13 +51,13 @@ namespace PushBoxSDKExample
             // React on request error
             pushBoxSdk.OnRequestError += (sender, args) =>
             {
-                Logger.Debugf("Got request error... {0}", args.Message);
+                Debug.WriteLine($"Got request error... {args.Message}");
             };
 
             // React on request successes
             pushBoxSdk.OnRequestSuccess += (sender, args) =>
             {
-                Logger.Debugf("Request success! {0} => {1}", args.ApiMethod, args.Message);
+                Debug.WriteLine("Request success! {0} => {1}", args.ApiMethod, args.Message);
             };
 
             // Register background task (optional)
