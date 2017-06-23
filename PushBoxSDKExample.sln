@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PushBoxSDKExample", "PushBo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PushBoxSDKExampleBackgroundTask", "PushBoxSDKExampleBackgroundTask\PushBoxSDKExampleBackgroundTask.csproj", "{6625342E-B9FE-44F6-920F-CC9B73EA38AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PushBoxSDK", "..\pushbox-sdk-windows\PushBoxSDK.csproj", "{8FEC0FB6-284A-4B99-9D0E-A306443A493C}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,18 +47,6 @@ Global
 		{6625342E-B9FE-44F6-920F-CC9B73EA38AF}.Release|ARM.Build.0 = Release|ARM
 		{6625342E-B9FE-44F6-920F-CC9B73EA38AF}.Release|x86.ActiveCfg = Release|x86
 		{6625342E-B9FE-44F6-920F-CC9B73EA38AF}.Release|x86.Build.0 = Release|x86
-		{8FEC0FB6-284A-4B99-9D0E-A306443A493C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8FEC0FB6-284A-4B99-9D0E-A306443A493C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8FEC0FB6-284A-4B99-9D0E-A306443A493C}.Debug|ARM.ActiveCfg = Debug|ARM
-		{8FEC0FB6-284A-4B99-9D0E-A306443A493C}.Debug|ARM.Build.0 = Debug|ARM
-		{8FEC0FB6-284A-4B99-9D0E-A306443A493C}.Debug|x86.ActiveCfg = Debug|x86
-		{8FEC0FB6-284A-4B99-9D0E-A306443A493C}.Debug|x86.Build.0 = Debug|x86
-		{8FEC0FB6-284A-4B99-9D0E-A306443A493C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8FEC0FB6-284A-4B99-9D0E-A306443A493C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8FEC0FB6-284A-4B99-9D0E-A306443A493C}.Release|ARM.ActiveCfg = Release|ARM
-		{8FEC0FB6-284A-4B99-9D0E-A306443A493C}.Release|ARM.Build.0 = Release|ARM
-		{8FEC0FB6-284A-4B99-9D0E-A306443A493C}.Release|x86.ActiveCfg = Release|x86
-		{8FEC0FB6-284A-4B99-9D0E-A306443A493C}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
