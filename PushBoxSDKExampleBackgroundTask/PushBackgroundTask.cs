@@ -1,20 +1,32 @@
 ﻿using Windows.ApplicationModel.Background;
 using HouseOfCode.PushBoxSDK;
 using HouseOfCode.PushBoxSDK.Helpers;
+using System;
 
 namespace PushBoxSDKExampleBackgroundTask
 {
     public sealed class PushBackgroundTask : IBackgroundTask
     {
-        public void Run(IBackgroundTaskInstance taskInstance)
+        public async void Run(IBackgroundTaskInstance taskInstance)
         {
-            // Try to get PushBox message from task trigger
-            var message = PushBoxSDKBackgroundTask.Instance.HandleBackgroundTaskTriggered(taskInstance);
+            // Important: Get deferral to enable running async functions
+            // when triggered.
 
-            if (message != null)
+            var deferral = taskInstance.GetDeferral();
+            // Try to get PushBox message from task trigger
+            try
             {
-                // Show toast with PushBox message content
-                ToastHelper.ShowToastNotification(message.Title, message.Message, "/");
+                // Important: await HandleBackgroundTaskTriggered to allow sdk work
+                var message = await PushBoxSDKBackgroundTask.Instance.HandleBackgroundTaskTriggered(taskInstance);
+
+                if (message != null)
+                {
+                    // Show toast with PushBox message content
+                    ToastHelper.ShowToastNotification(message.Title, message.Message, "/");
+                }
+            } catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error handling push in background task, {e.Message}");
             }
         }
     }

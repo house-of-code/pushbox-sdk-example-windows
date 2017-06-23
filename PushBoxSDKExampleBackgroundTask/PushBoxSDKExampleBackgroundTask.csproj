@@ -83,13 +83,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="PushBoxSDK, Version=0.2.5828.25563, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\PushBoxSDK.0.2.5828.25563\lib\wpa81\PushBoxSDK.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\..\pushbox-sdk-windows\PushBoxSDK.csproj">
+      <Project>{8fec0fb6-284a-4b99-9d0e-a306443a493c}</Project>
+      <Name>PushBoxSDK</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>

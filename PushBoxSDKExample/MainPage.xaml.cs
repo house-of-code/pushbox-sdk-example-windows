@@ -5,6 +5,8 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using HouseOfCode.PushBoxSDK;
+using System.Linq;
+using Windows.UI.Xaml;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=391641
 
@@ -26,24 +28,26 @@ namespace PushBoxSDKExample
             // Register push event handler for when app is in foreground
             pushBoxSdk.OnPush += InstanceOnOnPush;
 
-//            pushBoxSdk.OnMessagesReceived += InstanceOnOnMessagesReceived;
-//            pushBoxSdk.GetMessages();
-//
-//            pushBoxSdk.SetGender(Gender.Female);
-//
-//            pushBoxSdk.SetChannels(new List<string>() {  "channel1", "channel2", "channel3", "channel4" });
+            pushBoxSdk.OnMessagesReceived += InstanceOnOnMessagesReceived;
+            pushBoxSdk.GetMessages();
+
+            // pushBoxSdk.SetGender(Gender.Female);
+            //
+            // pushBoxSdk.SetChannels(new List<string>() {  "channel1", "channel2", "channel3", "channel4" });
         }
 
-        private void InstanceOnOnMessagesReceived(object sender, OnMessagesReceivedEventArgs onMessagesReceivedEventArgs)
+        private async void InstanceOnOnMessagesReceived(object sender, OnMessagesReceivedEventArgs onMessagesReceivedEventArgs)
         {
-            var messages = onMessagesReceivedEventArgs.Messages;
-
-            Debug.WriteLine($"Got {messages.Count} message(s)");
-
-            foreach (var message in messages)
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                Debug.WriteLine(message.Title);
-            }
+                var messages = onMessagesReceivedEventArgs.Messages;
+
+                var titles = messages.Select(m => new LogItem(m.Title)).Reverse();
+
+                Debug.WriteLine($"Got {messages.Count} message(s)");
+
+                ((MainPageViewModel)this.DataContext).SetItems(titles);
+            });
         }
 
         private async void InstanceOnOnPush(object sender, OnPushEventArgs onPushEventArgs)
@@ -51,6 +55,8 @@ namespace PushBoxSDKExample
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
             {
                 var dialog = new MessageDialog(onPushEventArgs.Message.ToString(), onPushEventArgs.Message.Message);
+                ((MainPageViewModel)this.DataContext).NoItems();
+                PushBoxSDK.Instance.GetMessages();
                 await dialog.ShowAsync();
             });
         }
@@ -71,6 +77,12 @@ namespace PushBoxSDKExample
             // Windows.Phone.UI.Input.HardwareButtons.BackPressed event.
             // If you are using the NavigationHelper provided by some templates,
             // this event is handled for you.
+        }
+
+        private void ActionRefresh_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            ((MainPageViewModel)this.DataContext).NoItems();
+            PushBoxSDK.Instance.GetMessages();
         }
     }
 }

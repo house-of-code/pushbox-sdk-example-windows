@@ -1,23 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.ApplicationModel.Background;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using HouseOfCode.PushBoxSDK;
+using Windows.UI.Core;
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=391641
 
@@ -29,8 +19,6 @@ namespace PushBoxSDKExample
     public sealed partial class App : Application
     {
         private TransitionCollection transitions;
-
-        private readonly ILogger Logger;
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -67,7 +55,7 @@ namespace PushBoxSDKExample
 
         private void OnUnhandledException(object sender, UnhandledExceptionEventArgs unhandledExceptionEventArgs)
         {
-            Logger.Warn(unhandledExceptionEventArgs.Message);
+            Debug.WriteLine(unhandledExceptionEventArgs.Message);
         }
 
         /// <summary>
@@ -133,8 +121,22 @@ namespace PushBoxSDKExample
                 }
             }
 
+            // Register for visibility change to set PushBox background (toast) or foreground (in-app) mode.
+            Window.Current.VisibilityChanged += OnWindowVisibilityChanged;
+
             // Ensure the current window is active
             Window.Current.Activate();
+        }
+
+        private void OnWindowVisibilityChanged(object sender, VisibilityChangedEventArgs e)
+        {
+            if (e.Visible)
+            {
+                PushBoxSDK.Instance.ActivateForegroundMode();
+            } else
+            {
+                PushBoxSDK.Instance.ActivateBackgroundMode();
+            }
         }
 
         /// <summary>

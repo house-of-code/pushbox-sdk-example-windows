@@ -7,8 +7,47 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+    <Page.DataContext>
+        <local:MainPageViewModel />
+    </Page.DataContext>
     <Grid>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock FontSize="36" Text="{Binding Title}" Grid.Row="0" Margin="10, 0, 10, 0" Padding="0"></TextBlock>
+        <ListView ItemsSource="{Binding Items}"
+                  Grid.Row="1"
+                  HorizontalContentAlignment="Stretch"
+                  Margin="0, 10, 0, 0"
+                  >
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalAlignment" Value="Stretch" />
+                    <Setter Property="BorderBrush"  Value="Gray" />
+                    <Setter Property="BorderThickness" Value="0, 0, 0, 1" />
+                    <Setter Property="Padding" Value="10" />
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.Header>
+                <TextBlock Padding="10" Foreground="Gray" FontSize="16">Beskeder:</TextBlock>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                        <TextBlock
+                            Text="{Binding Title}"
+                                   FontSize="24"
+                                   HorizontalAlignment="Stretch"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <CommandBar.PrimaryCommands>
+                <AppBarButton Icon="Add" Name="ActionAdd" ></AppBarButton>
+                <AppBarButton Icon="Refresh" Name="ActionRefresh" Click="ActionRefresh_Click"></AppBarButton>
+            </CommandBar.PrimaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>
